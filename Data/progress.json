@@ -1,0 +1,14 @@
+{
+    "UK_debates_start_date": "2019-12-31",
+    "UK_debates_end_date": "2011-01-01",
+    "USA_debates_start_date": "2022-12-31",
+    "USA_debates_end_date": "2001-01-01",
+    "USA_debates_processor_idx": 0,
+    "CA_debates_start_date": "2010-02-13",
+    "CA_debates_end_date": "2001-01-01",
+    "IL_debates_start_date": "2020-01-01",
+    "IL_debates_end_date": "2024-01-01",
+    "TN_debates_start_date": "2019-12-31",
+    "TN_debates_end_date": "2024-01-01",
+    "CA_news": "2019/01/21"
+}
