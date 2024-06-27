@@ -110,19 +110,22 @@ class UK_DataCollector(DataCollector):
 
 
         # save MPs
-        csv_file_name = "uk_members.csv"
-        all_MPs.to_csv(f"{Data.csv_files_dir}/members/{csv_file_name}")
-
+        csv_file_name = "UK_members.csv"
+        try:
+            all_MPs.to_csv(f"{Data.csv_files_dir}/members/{csv_file_name}", index_label='member_id')
+        except:
+            print("error while saving csv, fixed by abo swaid")
+            all_MPs.to_csv(f"{Data.csv_files_dir}/members/{csv_file_name}")
 
         # save parties
-        all_MPs = pd.read_csv(f"{Data.csv_files_dir}/members/uk_members.csv")
-        parties = list(set(all_MPs['party'].values))
-        parties_df = pd.DataFrame(parties)
-        parties_df.columns = ['party_name']
-        parties_df["country"] = Data.country2code['uk']
-
-        csv_file_name = "UK_parties.csv"
-        parties_df.to_csv(f"{Data.csv_files_dir}/parties/{csv_file_name}")
+        # all_MPs = pd.read_csv(f"{Data.csv_files_dir}/members/uk_members.csv")
+        # parties = list(set(all_MPs['party'].values))
+        # parties_df = pd.DataFrame(parties)
+        # parties_df.columns = ['party_name']
+        # parties_df["country"] = Data.country2code['uk']
+        #
+        # csv_file_name = "UK_parties.csv"
+        # parties_df.to_csv(f"{Data.csv_files_dir}/parties/{csv_file_name}")
         # res = reqs.get("https://members-api.parliament.uk/api/Members/History/172", headers={"accept": "text/plain"})
         #
         # print(res.content)
@@ -432,6 +435,7 @@ class UK_DataCollector(DataCollector):
 
             for party in party_hist:
                 MP = {
+                    "og_id": MP_id,
                     "name": MP_name,
                     "party": party['party']['name'],
                     "house": house,
@@ -492,6 +496,6 @@ class UK_DataCollector(DataCollector):
 
 if __name__ == "__main__":
     a = UK_DataCollector(20, "test")
-    links = a.get_bills()
+    links = a.get_members()
     #
     # print(links, len(links))

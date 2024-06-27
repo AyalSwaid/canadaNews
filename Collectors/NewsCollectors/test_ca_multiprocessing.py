@@ -47,7 +47,10 @@ class CA_NewsCollector(NewsCollector):
             url = f"https://nationalpost.com/sitemap/{formatted_date}/"
             print("curr_url:", url)
             # Send a GET request to the page with headers
-            response = requests.get(url, headers=headers)
+            try:
+                response = requests.get(url, headers=headers)
+            except:
+                continue
             if response.status_code == 200:
                 soup = BeautifulSoup(response.content, 'html.parser')
                 # Find all <a> tags with the desired pattern
@@ -63,7 +66,7 @@ class CA_NewsCollector(NewsCollector):
                 # self.splits = tuple(tuple(sl) for sl in self.split_list(filtered_links, self.n_workers))
                 self.splits = self.split_list(filtered_links, self.n_workers)
                 workers = []
-                print("starting processes")
+                print("starting processes - total", len(filtered_links), "links")
                 # start 4 processes to process the list
                 # res_queue = mp.Queue()
                 for worker_idx in range(self.n_workers):
@@ -243,7 +246,7 @@ class CA_NewsCollector(NewsCollector):
 
         # with open(f"{worker_idx}.txt", "w") as f:
         #     f.writelines(to_write)
-
+        driver.quit()
         pd.DataFrame(to_write).to_csv(f"{worker_idx}.csv")
 
     def collect_workers_results(self):
@@ -255,3 +258,4 @@ class CA_NewsCollector(NewsCollector):
 
 
 # print(pd.read_csv(r"C:\Users\ayals\OneDrive\שולחן העבודה\parliamentMining\Data\csv_files\news\CA\2024-06-19 21-18-13.935680.csv").shape)
+# os.system("taskkill /F /IM chromedriver.exe")
