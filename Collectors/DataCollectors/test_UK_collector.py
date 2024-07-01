@@ -34,7 +34,7 @@ class UK_DataCollector(DataCollector):
         self.failed_links = []
         self.members = pd.read_csv("Data/csv_files/members/UK_members.csv")
 
-        self.member_id2name_cache = dict(self.members[["og_id", "name"]])
+        self.member_id2name_cache = dict(self.members[["og_id", "name"]].values)
         self.members_set = set(self.members["name"].values)
         print("finish init")
 
@@ -59,6 +59,7 @@ class UK_DataCollector(DataCollector):
 
             if not speeches:
                 empty_speeches.append(link)
+                continue
 
             # make json file
             # save json file path in debate_metadata
@@ -81,6 +82,7 @@ class UK_DataCollector(DataCollector):
 
         time.sleep(2)
         driver.quit()
+        os.system("taskkill /F /IM chrome.exe")
         print("DONE UK debates")
     def init_driver(self):
         '''
@@ -127,7 +129,11 @@ class UK_DataCollector(DataCollector):
         # date,debate_title,country,file_path,members
         # get date
         metadata["date"] = link.split("/")[4]
-        metadata["debate_title"] = driver.find_element(By.XPATH, "/html/body/main/div[1]/div[1]/div/div[1]/h1").text
+        try:
+            metadata["debate_title"] = driver.find_element(By.XPATH, "/html/body/main/div[1]/div[1]/div/div[1]/h1").text
+        except:
+            return metadata, speeches, members
+
         metadata["country"] = country
         # speeches
         debate_tags = driver.find_element(By.XPATH, '//div[contains(@class, "primary-content")]')
@@ -220,7 +226,7 @@ class UK_DataCollector(DataCollector):
     def member_id2name(self, name_id):
         # if self.member_id2name_cache.get(name_id) is not None:
         #     return self.member_id2name_cache.get(name_id)
-        return self.member_id2name_cache.get(name_id, "UNKNOWN")
+        return self.member_id2name_cache.get(name_id, None)
         # name = self.members[self.members["og_id"] == name_id]
         # # TODO: check if using driver
         #
@@ -274,9 +280,11 @@ class UK_DataCollector(DataCollector):
         return links
 
 if __name__ == "__main__":
-    t = "https://hansard.parliament.uk/Commons/2018-01-22/debates/9550a513-062e-4abd-af2e-691972f93afb/WestminsterHall"
+    t = "https://hansard.parliament.uk/Commons/2018-02-08/debates/87DB5387-BF64-4D07-8BFF-93975485B7D8/SuperfastBroadbandNorthEastHertfordshire"
     # t = "https://hansard.parliament.uk/Commons/2020-02-27/debates/7E397263-07BF-4D8B-8ABB-F927ACA66759/BusinessOfTheHouse"
     x = UK_DataCollector(15)
     d = x.init_driver()
-    x.extract_speeches_from_link(d, t)
+    print(x.extract_speeches_from_link(d, t))
+
     d.quit()
+    os.system("taskkill /F /IM chrome.exe")
