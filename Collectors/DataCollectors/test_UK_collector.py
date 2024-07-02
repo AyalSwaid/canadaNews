@@ -99,12 +99,11 @@ class UK_DataCollector(DataCollector):
         download_dir = os.path.join(os.getcwd(), download_dir.replace("/", "\\"))
 
         options.add_experimental_option("prefs", {
-            "download.default_directory": download_dir,
             "download.prompt_for_download": False,  # Disable prompting for download
             "download.directory_upgrade": True})
 
         # create needed folders for downloads
-        for dir_path in [self.download_dir, self.txt_files_dir]:
+        for dir_path in [self.txt_files_dir]:
             try:
                 os.mkdir(dir_path)
                 print(f"Directory '{dir_path}' created successfully.")
