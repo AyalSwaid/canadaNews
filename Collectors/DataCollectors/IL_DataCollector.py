@@ -179,7 +179,7 @@ class IL_DataCollector(DataCollector):
             file_path_url = file_entry.find("FilePath").text
 
             # filter non relevant files (keep only debates)
-            if (group_type_desc != "דברי הכנסת") or ( "_toc_" in file_path_url) or ("_tor_" in file_path_url): # TODO: maybe ask shai about these
+            if (group_type_desc != "דברי הכנסת") or ( "_toc_" in file_path_url): # TODO: maybe ask shai about these
                 continue
 
             print("file url:", file_path_url, file_type)

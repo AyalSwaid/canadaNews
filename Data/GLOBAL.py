@@ -24,7 +24,7 @@ class Data:
     progress_json = 'Data/progress.json'
 
     # chrome_driver_path = r'C:\Users\ayals\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe'
-    chrome_driver_path = r'C:\Users\ayals\OneDrive\שולחן העבודה\parliamentMining\chromedriver-win64\chromedriver-win64\chromedriver.exe'
+    chrome_driver_path = r'chromedriver-win64/chromedriver-win64/chromedriver.exe'
     text_files_dir = 'Data/tmp_text_files'
 
     failed_links_pkl = 'Data/failed_links.pkl'

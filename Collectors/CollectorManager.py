@@ -9,7 +9,7 @@ class CollectorManager:
     def __init__(self, batch_size):
         self.batch_size = batch_size
         
-        self.collectors = [UK_DataCollector(batch_size)]
+        self.collectors = [IL_DataCollector(batch_size)]
 
 
     def run_collectors(self):

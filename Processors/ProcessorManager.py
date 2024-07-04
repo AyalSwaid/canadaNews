@@ -14,4 +14,4 @@ class ProcessorManager:
     
     def run_processors(self):
         for processor in self.processors:
-            processor.process_USA()
+            processor.process_IL()

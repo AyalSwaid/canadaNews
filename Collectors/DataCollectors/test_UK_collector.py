@@ -19,7 +19,11 @@ from datetime import datetime, timedelta
 from random import random
 import requests as reqs
 
-
+"""
+stats USA:
+seconds | num of debates | seconds per one debate
+4775    | 336            | 14   
+"""
 class UK_DataCollector(DataCollector):
     def __init__(self, batch_size, txt_files_dir = "text_files"):
         super(UK_DataCollector, self).__init__(batch_size)

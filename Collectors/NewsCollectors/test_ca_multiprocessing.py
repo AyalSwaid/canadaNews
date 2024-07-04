@@ -26,7 +26,7 @@ class CA_NewsCollector(NewsCollector):
         self.driver_path = Data.chrome_driver_path
         self.driver = None
 
-        self.n_workers = 4
+        self.n_workers = 3
         self.to_write = [[] for _ in range(self.n_workers)]
         self.drivers = [None for _ in range(self.n_workers)]
 
@@ -114,7 +114,7 @@ class CA_NewsCollector(NewsCollector):
         if to_write:
             csv_file_path = f"{Data.csv_files_dir}/news/CA/{str(datetime.now()).replace(':', '-')}.csv"
             with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
-                writer = csv.DictWriter(csvfile, fieldnames=["title", "date", "content", "country"])
+                writer = csv.DictWriter(csvfile, fieldnames=["id", "title", "date", "content", "country"])
                 writer.writeheader()
 
                 writer = csv.writer(csvfile)
