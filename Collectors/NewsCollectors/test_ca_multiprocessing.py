@@ -64,12 +64,13 @@ class CA_NewsCollector(NewsCollector):
 
                 # step_size = len(filtered_links) // self.n_workers
                 # self.splits = tuple(tuple(sl) for sl in self.split_list(filtered_links, self.n_workers))
-                self.splits = self.split_list(filtered_links, self.n_workers)
+                n_workers = 1 if len(filtered_links) < 25 else self.n_workers
+                self.splits = self.split_list(filtered_links, n_workers)
                 workers = []
                 print("starting processes - total", len(filtered_links), "links")
                 # start 4 processes to process the list
                 # res_queue = mp.Queue()
-                for worker_idx in range(self.n_workers):
+                for worker_idx in range(n_workers):
                     print(worker_idx)
 
                     # TODO: fix driver quit
@@ -87,7 +88,7 @@ class CA_NewsCollector(NewsCollector):
                 os.system("taskkill /F /IM chrome.exe")
 
                 # collect results from workers
-                for w_idx in range(self.n_workers):
+                for w_idx in range(n_workers):
                     to_write.extend(pd.read_csv(f"{w_idx}.csv").values.tolist())
 
                 # [to_write.extend(worker_res) for worker_res in self.to_write]
