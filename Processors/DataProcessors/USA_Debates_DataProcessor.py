@@ -122,7 +122,7 @@ class Debates_DataProcessor(DataProcessor):
             print(f"process {j+start_idx} from {len(data['results'])}")
             debate_id = counter
             counter += 1
-            summary_link = debate['resultLink'] + "?api_key=c2mQmLAgAYvSIawOm9aPWLr2kYs277VUxqz6DS9L"
+            summary_link = debate['resultLink'] + "?api_key=21Q15esV5Oew1sJ9S8m9gKLaoMEe3rAYlMj4lRDn"
             try:
                 summary_response = requests.get(summary_link)
             except Exception as e:
@@ -140,7 +140,7 @@ class Debates_DataProcessor(DataProcessor):
                         summary_data["members"]) > 2:  # If at least there is two talking memberz
                     print("found deabate with 2")
                     details = summary_data[
-                                  "detailsLink"] + "?api_key=c2mQmLAgAYvSIawOm9aPWLr2kYs277VUxqz6DS9L"
+                                  "detailsLink"] + "?api_key=21Q15esV5Oew1sJ9S8m9gKLaoMEe3rAYlMj4lRDn"
 
                     # options = Options()
                     # options.headless = True
@@ -195,7 +195,7 @@ class Debates_DataProcessor(DataProcessor):
                         title = summary_data["title"]
 
                         record_link = summary_data["download"][
-                                          "txtLink"] + "?api_key=c2mQmLAgAYvSIawOm9aPWLr2kYs277VUxqz6DS9L"
+                                          "txtLink"] + "?api_key=21Q15esV5Oew1sJ9S8m9gKLaoMEe3rAYlMj4lRDn"
                         try:
                             txt_response = requests.get(record_link)
                         except:

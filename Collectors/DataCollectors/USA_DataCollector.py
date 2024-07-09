@@ -11,7 +11,8 @@ class USA_DataCollector(DataCollector):
     def __init__(self, batch_size):
         super(USA_DataCollector, self).__init__(batch_size)
         self.url = 'https://api.govinfo.gov/search'
-        self.api_key = 'c2mQmLAgAYvSIawOm9aPWLr2kYs277VUxqz6DS9L'
+        # self.api_key = 'c2mQmLAgAYvSIawOm9aPWLr2kYs277VUxqz6DS9L'
+        self.api_key = '21Q15esV5Oew1sJ9S8m9gKLaoMEe3rAYlMj4lRDn'
         self.PROPUBLICA_API_KEY = '1VLppuDeNqAKZ02Ii6QYvURffxMNANYgCnuMrt77'
 
     def get_debates(self):
