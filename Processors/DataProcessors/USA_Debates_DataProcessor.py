@@ -35,7 +35,7 @@ class Debates_DataProcessor(DataProcessor):
             return self.driver
 
         options = Options()
-        options.headless = True
+        options.headless = False
         # block images and javascript requests
         # chrome_prefs = {
         #     "profile.default_content_setting_values": {
@@ -44,6 +44,8 @@ class Debates_DataProcessor(DataProcessor):
         #     }
         # }
         # options.experimental_options["prefs"] = chrome_prefs
+        # options.add_argument('--proxy-server=http://{}:{}'.format("172.183.241.1", 8080))
+
         service = Service(executable_path=Data.chrome_driver_path)
         driver = webdriver.Chrome(options=options, service=service)
         self.driver = driver
@@ -153,17 +155,24 @@ class Debates_DataProcessor(DataProcessor):
                     # service = Service(executable_path=Data.chrome_driver_path)
                     # driver = webdriver.Chrome(options=options, service=service)
                     driver = self.init_driver()
-
-                    driver.get(details)
+                    print(details)
+                    try:
+                        driver.get(details)
+                    except Exception as e:
+                        print("ERRORED HERE: ", e)
+                        driver.quit()
+                        self.driver = None
+                        continue
                     driver.implicitly_wait(2)
                     driver.refresh()
                     try:
                         driver.implicitly_wait(5)
                         print("done waiting")
-                        element = driver.find_element_by_css_selector(
+                        element = driver.find_element(By.CSS_SELECTOR,
                             "#accMetadata > div:nth-child(11) > div.col-xs-12.col-sm-9 > p")
                         sub_type = element.text
                         driver.quit()
+                        self.driver = None
 
                     except Exception as e:
                         print(e)
